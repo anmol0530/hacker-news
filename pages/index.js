@@ -1,12 +1,16 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
+import { debounce } from '../util/commonUtils';
+import Loader from './loader/loader';
 
 
 export default function Home() {
     const [posts, setPosts] = useState("");
-    const [query, setQuery] = useState("");
+    // const [query, setQuery] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    const ref = useRef('');
 
     const queryAPI = async (q) => {
         try {
@@ -15,7 +19,6 @@ export default function Home() {
                 `http://hn.algolia.com/api/v1/search?query=${q}`
             );
             const data = await res.json();
-            console.log(data);
             setPosts(data.hits);
             setIsLoading(false);
         } catch (err) {
@@ -24,20 +27,9 @@ export default function Home() {
         }
     };
 
-    function debounce(fn, delay) {
-        let timer;
-        return function () {
-            clearInterval(timer);
-            timer = setTimeout(() => {
-                fn.apply(this, arguments);
-            }, delay);
-        };
-    };
-
     const debouncedQuery = debounce(queryAPI, 500);
 
     const handleChange = (e) => {
-        setQuery(e.target.value);
 
         if (e.target.value !== '') {
             debouncedQuery(e.target.value);
@@ -48,12 +40,13 @@ export default function Home() {
     }
 
     const handleClear = () => {
-        setQuery('');
+        // setQuery('');
+        ref.current.value = "";
         setPosts('');
     }
 
     return (
-        <div className="flex flex-col items-center text-center min-h-[100vh] relative">
+        <div className="flex flex-col items-center text-center min-h-[100vh] relative bg-slate-50">
             <Head>
                 <title>Hacker News</title>
             </Head>
@@ -66,18 +59,20 @@ export default function Home() {
                     type="text"
                     className="bg-slate-200 py-[12px] w-full border-none rounded-lg pl-5 placeholder:text-2xl text-2xl outline-none"
                     placeholder="Search posts"
-                    value={query}
+                    // value={query}
+                    ref={ref}
                     onChange={handleChange} />
-                {query && <img src='/black-cross.png' className='h-8' onClick={handleClear} />}
+                {ref.current.value && <img src='/black-cross.png' className='h-8 cursor-pointer' onClick={handleClear} />}
             </div>
-            {!isLoading ? (
-                <p className="mt-8 h-[19vh]">Loading...</p>
+            {isLoading ? (
+                // <p className="mt-8 h-[19vh]">Loading...</p>
+                <Loader styles="flex mt-[16vh]"/>
             ) :
                 <>
                     {
                         posts ? (
-                            <div className="w-8/12 text-left mt-[20px]" >
-                                {posts.filter(post => post.title !== null && post.title !== '').map((post) => <Link href={"/post/" + post.objectID}><p className="cursor-pointer p-5 border-b-2" key={post.objectID} onClick>{post.title}</p></Link>)}
+                            <div className="w-8/12 text-left mt-[20px] mb-52" >
+                                {posts.filter(post => post.title !== null && post.title !== '').map((post) => <Link key={post.objectID} href={"/post/" + post.objectID}><p className="cursor-pointer py-5 mx-4 border-b-2 hover:text-[18px] hover:font-bold" onClick>{post.title}</p></Link>)}
                             </div>
                         ) :
                             <div className="p-10 opacity-40 font-bold text-[18px] leading-normal">
@@ -90,19 +85,19 @@ export default function Home() {
                     }
                 </>
             }
-            <footer className='mb-4 mt-16 bottom-0 p-2 self-auto'>
+            <footer className='mb-4 mt-[20px] absolute bottom-0 p-2 self-auto'>
                 <p className="mb-4 font-bold text-[17px] opacity-40">Find more on</p>
                 <div className="flex gap-2 text-[15px]">
-                    <a href="https://github.com/anmol0530" target="_blank">
+                    <a href="https://github.com/anmol0530/hacker-news" target="_blank">
                         <div className="flex bg-[rgb(238,238,238)] rounded-xl px-3 py-2 items-center font-bold gap-2">
                             <img src="./github.png" alt="" className="h-[24px]" />
-                            Github
+                            github
                         </div>
                     </a>
                     <a href="https://www.linkedin.com/in/anmoljulka/" target="_blank">
                         <div className="flex bg-[rgb(238,238,238)] rounded-xl px-3 py-2 items-center font-bold gap-2">
                             <img src="./linkedin.png" alt="" className="h-[24px]" />
-                            LinkedIn
+                            linkedIn
                         </div>
                     </a>
                 </div>
