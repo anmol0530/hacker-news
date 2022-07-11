@@ -65,7 +65,7 @@ export default function Home() {
                 {ref.current.value && <img src={blackCross.src} className='h-8 cursor-pointer' onClick={handleClear} />}
             </div>
             {isLoading ? (
-                <Loader styles="flex my-[26vh]" />
+                <Loader styles="flex my-[22vh]" />
             ) :
                 <>
                     {
