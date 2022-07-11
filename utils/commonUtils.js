@@ -26,27 +26,14 @@ export function timeSince(date) {
     return Math.floor(seconds) + " seconds";
 }
 
-
-// export function debounce(fn, delay) {
-//     let timer;
-//     return function () {
-//         clearInterval(timer);
-//         timer = setTimeout(() => {
-//             fn.apply(this, arguments);
-//         }, delay);
-//     };
-// };
-
 export function debounce(fn, delay) {
     let timer;
     return function () {
+        const context = this;
+        const args = arguments;
         clearInterval(timer);
-        timer = setTimeout(() => {
-            if (arguments[0] === '') {
-                setPosts('');
-            } else {
-                fn.apply(this, arguments);
-            }
+        timer = setTimeout(function() {
+            fn.apply(context, args);
         }, delay);
     }
 };

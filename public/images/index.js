@@ -1,19 +1,17 @@
-import del from './delete.png';
-import edit from './edit.png';
-import blackCross from './black-cross.png';
-import redCross from './red-cross.png';
-import greenTick from './green-tick.png';
-import warningWhite from './warning-white.svg';
-import greyTick from './grey-tick.png';
 import search from './search.png';
+import blackCross from './black-cross.png';
+import github from './github.png';
+import linkedin from './linkedin.png';
+import home from './home.png';
+import plus from './plus.png';
+import minus from './minus.png';
 
 export {
-    del,
-    edit,
+    search,
     blackCross,
-    redCross,
-    greenTick,
-    warningWhite,
-    greyTick,
-    search
+    github,
+    linkedin,
+    home,
+    plus,
+    minus,
 }

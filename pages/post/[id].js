@@ -1,18 +1,17 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
-import data from '../../util/data.json';
-import home from "../../public/home.png";
-import { timeSince } from '../../util/commonUtils';
-import Comment from '../comment/comment';
-import Loader from '../loader/loader';
+import { timeSince } from '../../utils/commonUtils';
+import Comment from '../../components/comment/comment';
+import Loader from '../../components/loader/loader';
+import { home } from '../../public/images';
 
 export default function Post() {
     const router = useRouter();
     const { id } = router.query;
 
     const [post, setPost] = useState('');
-    const [commentCount, setCommentCount] = useState(20);
+    const [commentCount, setCommentCount] = useState(15);
     const [isLoading, setIsLoading] = useState(false);
 
     const queryAPI = async (id) => {
@@ -22,7 +21,6 @@ export default function Post() {
                 `http://hn.algolia.com/api/v1/items/${id}`
             );
             const data = await res.json();
-            // console.log(data);
             setPost(data);
             sessionStorage.setItem(id, JSON.stringify(data))
             setIsLoading(false);
@@ -44,7 +42,7 @@ export default function Post() {
         else if (id) {
             queryAPI(id);
         }
-    }, [id, data]);
+    }, [id]);
 
     return (
         <div className="">
@@ -53,8 +51,8 @@ export default function Post() {
             ) :
                 <>
                     {post &&
-                        <div className="pb-6">
-                            <div className="bg-[rgb(255,102,0)] sticky flex gap-2 items-center top-0 h-14 py-2 pl-4 font-bold text-3xl">
+                        <div className="pb-6 mobile:pb-2 break-words">
+                            <div className="bg-[rgb(255,102,0)] sticky flex gap-2 top-0 h-14 py-2 pl-4 font-bold text-3xl">
                                 <Link href="/">
                                     <img src={home.src} alt="" className="h-9 cursor-pointer" />
                                 </Link>
@@ -64,7 +62,12 @@ export default function Post() {
                             </div>
                             <div className='mb-10 mx-4 flex flex-col'>
                                 <div className="mt-8 text-[18px]">
-                                    <a href={post.url} target="_blank">{post.title}</a>
+                                    {post.url
+                                        ?
+                                        <a className="hover:text-blue-800 hover:font-semibold" href={post.url} target="_blank">{post.title}</a>
+                                        :
+                                        <p className=''>{post.title}</p>
+                                    }
                                 </div>
                                 <div className="mt-4 text-[14px]">
                                     {post.points + " points by "}
@@ -74,7 +77,7 @@ export default function Post() {
                                     {timeSince(new Date(post.created_at_i)) + " ago"}
                                 </div>
                             </div>
-                            <div className="mr-8 ml-6 pb-10">
+                            <div className="mr-8 mobile:mr-4 ml-4 tab:ml-3 mobile:ml-2 pb-10 mobile:pb-4">
                                 {post.children &&
                                     post.children
                                         .filter(child => child.text !== null && child.text !== '')
@@ -84,7 +87,7 @@ export default function Post() {
                             </div>
                             {(commentCount < post.children.length) &&
                                 <div
-                                    className="cursor-pointer text-[18px] text-center font-bold rounded-md p-3 w-40 mx-auto text-white bg-[rgb(255,102,0)] hover:bg-[rgb(255,55,0)]"
+                                    className="cursor-pointer text-[18px] mobile:text-[14px] text-center font-bold rounded-md p-3 mobile:p-2 w-40 mx-auto text-white bg-[rgb(255,102,0)] hover:bg-[rgb(255,55,0)]"
                                     onClick={loadMoreComments}
                                 >
                                     Load More

@@ -5,6 +5,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      'mobile': { 'max': '550px' },
+      
+      'tab': { 'max': '900px', 'min': '550px' },
+    },
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

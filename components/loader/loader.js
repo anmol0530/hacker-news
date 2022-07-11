@@ -1,4 +1,4 @@
-const Loader = ({styles}) => {
+const Loader = ({ styles }) => {
     let circleCommonClasses = 'h-2.5 w-2.5 bg-current   rounded-full';
 
     return (
