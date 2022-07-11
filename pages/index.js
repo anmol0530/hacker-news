@@ -65,7 +65,7 @@ export default function Home() {
                 {ref.current.value && <img src={blackCross.src} className='h-8 cursor-pointer' onClick={handleClear} />}
             </div>
             {isLoading ? (
-                <Loader styles="flex mt-[16vh]" />
+                <Loader styles="flex my-[26vh]" />
             ) :
                 <>
                     {
@@ -94,7 +94,7 @@ export default function Home() {
                     }
                 </>
             }
-            {!posts &&
+            {!posts && !isLoading &&
                 <footer className='mb-4 absolute bottom-0 p-2 self-auto'>
                     <p className="mb-4 font-bold text-[17px] opacity-40">Find more on</p>
                     <div className="flex gap-2 text-[15px]">
