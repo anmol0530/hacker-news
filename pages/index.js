@@ -70,23 +70,22 @@ export default function Home() {
                 <>
                     {
                         posts ? (
-                            <div className="w-8/12 mobile:w-11/12 text-left mt-[20px] h-[45vh] overflow-auto" >
+                            <div className="w-8/12 mobile:w-11/12 text-left mt-[20px] h-[44vh] overflow-auto mobile:mb-8" >
                                 {posts
                                     .filter(post => post.title !== null && post.title !== '')
                                     .map((post) =>
                                         <Link
                                             key={post.objectID}
                                             href={"/post/" + post.objectID}>
-                                            <p
-                                                className="cursor-pointer mobile:text-sm py-4 px-2 mx-4 mb-1 rounded-md mobile:rounded-none mobile:border-b-2 hover:bg-gray-200 hover:rounded-md hover:font-bold"
-                                                onClick>{post.title}
+                                            <p className="cursor-pointer mobile:text-sm py-4 px-2 mx-4 mb-1 rounded-md mobile:rounded-none mobile:border-b-2 hover:bg-gray-200 hover:rounded-md hover:font-bold">
+                                                {post.title}
                                             </p>
                                         </Link>
                                     )
                                 }
                             </div>
                         ) :
-                            <div className="p-10 opacity-40 font-bold text-[18px] mobile:text-[14px] leading-normal">
+                            <div className="p-10 opacity-40 font-bold text-[18px] mobile:text-[14px] leading-normal mb-28">
                                 <h1>
                                     Welcome to Hacker News, a social news website focusing on computer science and entrepreneurship.
                                 </h1>

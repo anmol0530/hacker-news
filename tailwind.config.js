@@ -7,10 +7,15 @@ module.exports = {
   theme: {
     screens: {
       'mobile': { 'max': '550px' },
-      
+
       'tab': { 'max': '900px', 'min': '550px' },
     },
-    extend: {},
+    extend: {
+      animation: {
+        bounce200: 'bounce 1s infinite 200ms',
+        bounce400: 'bounce 1s infinite 400ms',
+      },
+    },
   },
   plugins: [],
 }
