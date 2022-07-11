@@ -18,7 +18,7 @@ export default function Post() {
         try {
             setIsLoading(true);
             const res = await fetch(
-                `http://hn.algolia.com/api/v1/items/${id}`
+                `https://hn.algolia.com/api/v1/items/${id}`
             );
             const data = await res.json();
             setPost(data);

@@ -16,7 +16,7 @@ export default function Home() {
         try {
             setIsLoading(true);
             const res = await fetch(
-                `http://hn.algolia.com/api/v1/search?query=${q}`
+                `https://hn.algolia.com/api/v1/search?query=${q}`
             );
             const data = await res.json();
             setPosts(data.hits);
