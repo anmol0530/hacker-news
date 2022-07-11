@@ -64,7 +64,7 @@ export default function Post() {
                                 <div className="mt-8 text-[18px]">
                                     {post.url
                                         ?
-                                        <a className="hover:text-blue-800 hover:font-semibold" href={post.url} target="_blank">{post.title}</a>
+                                        <a className="hover:text-blue-800 hover:font-semibold" href={post.url} target="_blank" rel="noopener noreferrer">{post.title}</a>
                                         :
                                         <p className=''>{post.title}</p>
                                     }

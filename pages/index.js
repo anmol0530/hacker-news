@@ -99,13 +99,13 @@ export default function Home() {
                 <footer className='mb-4 absolute bottom-0 p-2 self-auto'>
                     <p className="mb-4 font-bold text-[17px] opacity-40">Find more on</p>
                     <div className="flex gap-2 text-[15px]">
-                        <a href="https://github.com/anmol0530/hacker-news" target="_blank">
+                        <a href="https://github.com/anmol0530/hacker-news" target="_blank" rel="noopener noreferrer">
                             <div className="flex bg-[rgb(238,238,238)] hover:bg-[rgb(200,200,200)] rounded-xl px-3 py-2 items-center font-bold gap-2">
                                 <img src={github.src} alt="" className="h-[24px]" />
                                 GitHub
                             </div>
                         </a>
-                        <a href="https://www.linkedin.com/in/anmoljulka/" target="_blank">
+                        <a href="https://www.linkedin.com/in/anmoljulka/" target="_blank" rel="noopener noreferrer">
                             <div className="flex bg-[rgb(238,238,238)] hover:bg-[rgb(200,200,200)] rounded-xl px-3 py-2 items-center font-bold gap-2">
                                 <img src={linkedin.src} alt="" className="h-[24px]" />
                                 LinkedIn
